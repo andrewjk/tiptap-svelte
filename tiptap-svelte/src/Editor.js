@@ -21,7 +21,7 @@ import {
   minMax,
 } from './Utils'
 import { Doc, Paragraph, Text } from './Nodes'
-import css from './style.css'
+// import css from './style.css'
 
 export default class Editor extends Emitter {
 
@@ -90,7 +90,7 @@ export default class Editor extends Emitter {
     this.setActiveNodesAndMarks()
 
     if (this.options.injectCSS) {
-      injectCSS(css)
+      // injectCSS(css)
     }
 
     if (this.options.autoFocus !== null) {
@@ -364,7 +364,7 @@ export default class Editor extends Emitter {
       return this.selection
     }
 
-    if (position === 'start' || position === true) {
+    if (position === 'start') {
       return {
         from: 0,
         to: 0,

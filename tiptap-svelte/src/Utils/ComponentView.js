@@ -1,5 +1,3 @@
-import Vue from 'vue'
-
 import { getMarkRange } from 'tiptap-utils'
 
 export default class ComponentView {
@@ -25,11 +23,12 @@ export default class ComponentView {
     this.getPos = this.isMark ? this.getMarkPos : getPos
     this.captureEvents = true
     this.dom = this.createDOM()
-    this.contentDOM = this.vm.$refs.content
+    // TODO: How do we get bound elements out of a component?
+    //this.contentDOM = this.vm.$refs.content
   }
 
   createDOM() {
-    const Component = Vue.extend(this.component)
+    const Component = this.component;
     const props = {
       editor: this.editor,
       node: this.node,
@@ -45,12 +44,21 @@ export default class ComponentView {
       this.setSelection = this.extension.setSelection
     }
 
+    // TODO: Fix the parent, which gets set initially in EditorContent.onMount
     this.vm = new Component({
-      parent: this.parent,
-      propsData: props,
-    }).$mount()
+      target: this.parent,
+      props
+    })
 
-    return this.vm.$el
+    // TODO: Need to return some sort of an element
+    return this.vm;
+
+    ////this.vm = new Component({
+    ////  parent: this.parent,
+    ////  propsData: props,
+    ////}).$mount()
+
+    ////return this.vm.$el
   }
 
   update(node, decorations) {
@@ -74,22 +82,22 @@ export default class ComponentView {
   }
 
   updateComponentProps(props) {
-    if (!this.vm._props) {
+    if (!this.vm.props) {
       return
     }
 
-    // Update props in component
-    // TODO: Avoid mutating a prop directly.
-    // Maybe there is a better way to do this?
-    const originalSilent = Vue.config.silent
-    Vue.config.silent = true
+    ////// Update props in component
+    ////// TODO: Avoid mutating a prop directly.
+    ////// Maybe there is a better way to do this?
+    ////const originalSilent = Vue.config.silent
+    ////Vue.config.silent = true
 
     Object.entries(props).forEach(([key, value]) => {
-      this.vm._props[key] = value
+      this.vm.props[key] = value
     })
-    // this.vm._props.node = node
-    // this.vm._props.decorations = decorations
-    Vue.config.silent = originalSilent
+    ////// this.vm.props.node = node
+    ////// this.vm.props.decorations = decorations
+    ////Vue.config.silent = originalSilent
   }
 
   updateAttrs(attrs) {
@@ -113,7 +121,7 @@ export default class ComponentView {
     this.view.dispatch(transaction)
   }
 
-  // prevent a full re-render of the vue component on update
+  // prevent a full re-render of the svelte component on update
   // we'll handle prop updates in `update()`
   ignoreMutation(mutation) {
     if (!this.contentDOM) {
@@ -177,7 +185,8 @@ export default class ComponentView {
   }
 
   destroy() {
-    this.vm.$destroy()
+    // TODO: Maybe onDestroy??
+    ////this.vm.$destroy()
   }
 
 }
