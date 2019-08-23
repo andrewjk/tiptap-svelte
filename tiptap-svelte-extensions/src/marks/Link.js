@@ -1,4 +1,4 @@
-import { Mark, Plugin } from 'tiptap'
+import { Mark, Plugin } from '../../../tiptap-svelte/src/index.js'
 import { updateMark, removeMark, pasteRule } from 'tiptap-commands'
 import { getMarkAttrs } from 'tiptap-utils'
 

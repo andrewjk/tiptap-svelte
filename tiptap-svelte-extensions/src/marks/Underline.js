@@ -1,4 +1,4 @@
-import { Mark } from 'tiptap'
+import { Mark } from '../../../tiptap-svelte/src/index.js'
 import { toggleMark } from 'tiptap-commands'
 
 export default class Underline extends Mark {

@@ -1,4 +1,4 @@
-import { Plugin, PluginKey } from 'tiptap'
+import { Plugin, PluginKey } from '../../../tiptap-svelte/src/index.js'
 import { Decoration, DecorationSet } from 'prosemirror-view'
 import { findBlockNodes } from 'prosemirror-utils'
 import low from 'lowlight/lib/core'

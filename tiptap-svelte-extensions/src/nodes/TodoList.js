@@ -1,4 +1,4 @@
-import { Node } from 'tiptap'
+import { Node } from '../../../tiptap-svelte/src/index.js'
 import { toggleList, wrappingInputRule } from 'tiptap-commands'
 
 export default class TodoList extends Node {

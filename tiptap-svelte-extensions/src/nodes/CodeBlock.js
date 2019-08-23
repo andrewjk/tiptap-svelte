@@ -1,4 +1,4 @@
-import { Node } from 'tiptap'
+import { Node } from '../../../tiptap-svelte/src/index.js'
 import { toggleBlockType, setBlockType, textblockTypeInputRule } from 'tiptap-commands'
 
 export default class CodeBlock extends Node {

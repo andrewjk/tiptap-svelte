@@ -1,4 +1,4 @@
-import { Extension, Plugin } from 'tiptap'
+import { Extension, Plugin } from '../../../tiptap-svelte/src/index.js'
 import { Decoration, DecorationSet } from 'prosemirror-view'
 
 export default class Search extends Extension {

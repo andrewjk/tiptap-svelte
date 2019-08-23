@@ -1,4 +1,4 @@
-import { Mark } from 'tiptap'
+import { Mark } from '../../../tiptap-svelte/src/index.js'
 import { toggleMark, markInputRule, markPasteRule } from 'tiptap-commands'
 
 export default class Italic extends Mark {

@@ -1,4 +1,4 @@
-import { Node } from 'tiptap'
+import { Node } from '../../../tiptap-svelte/src/index.js'
 import TableNodes from './TableNodes'
 
 export default class TableRow extends Node {

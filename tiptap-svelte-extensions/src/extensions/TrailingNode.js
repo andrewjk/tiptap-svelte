@@ -1,4 +1,4 @@
-import { Extension, Plugin, PluginKey } from 'tiptap'
+import { Extension, Plugin, PluginKey } from '../../../tiptap-svelte/src/index.js'
 import { nodeEqualsType } from 'tiptap-utils'
 
 export default class TrailingNode extends Extension {

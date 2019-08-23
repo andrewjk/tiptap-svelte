@@ -1,4 +1,4 @@
-import { Node } from 'tiptap'
+import { Node } from '../../../tiptap-svelte/src/index.js'
 import { sinkListItem, splitToDefaultListItem, liftListItem } from 'tiptap-commands'
 
 export default class TodoItem extends Node {
