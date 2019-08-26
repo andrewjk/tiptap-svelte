@@ -248,7 +248,14 @@ export default class Editor extends Emitter {
         new Plugin({
           props: this.options.editorProps,
         }),
-      ],
+      ].map((plugin, index) => {
+        // HACK: I think this is needed because we're loading multiple versions of prosemirror-state
+        // TODO: Set up a proper webpack config file to alias everything...
+        if (plugin.key.startsWith('plugin')) {
+          plugin.key = 'plugin' + index;
+        }
+        return plugin;
+      }),
     })
   }
 
