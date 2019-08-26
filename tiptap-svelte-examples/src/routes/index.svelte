@@ -11,18 +11,17 @@
 
   <p>
     This editor is ported from
-    <a href="https://tiptap.scrumpy.io/">tiptap</a>
-    , which is based on
-    <a href="https://prosemirror.net">Prosemirror</a>
-    .
+    <a href="https://tiptap.scrumpy.io/">tiptap</a>, which is based on
+    <a href="https://prosemirror.net">Prosemirror</a>.
   </p>
 
   <p>
     It is
     <em>fully extendable</em>
     and renderless. You can easily add custom nodes as
-    <strong>Svelte components</strong>
-    .
+    <strong>Svelte components</strong>.
   </p>
+
+  <p>(TODO: Allow users to easily add custom nodes as Svelte components...)</p>
 
 </div>
