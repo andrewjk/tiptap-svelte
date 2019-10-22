@@ -91,7 +91,9 @@ class Menu {
   }
 
   hide(event) {
-    if (event && event.relatedTarget) {
+    if (event
+      && event.relatedTarget
+      && this.options.element.parentNode.contains(event.relatedTarget)) {
       return
     }
 
