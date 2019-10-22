@@ -19,6 +19,7 @@ import {
   fixTables,
 } from 'prosemirror-tables'
 import { createTable } from 'prosemirror-utils'
+import { TextSelection } from 'prosemirror-state'
 import TableNodes from './TableNodes'
 
 export default class Table extends Node {
@@ -41,8 +42,14 @@ export default class Table extends Node {
     return {
       createTable: ({ rowsCount, colsCount, withHeaderRow }) => (
         (state, dispatch) => {
+          const offset = state.tr.selection.anchor + 1
+
           const nodes = createTable(schema, rowsCount, colsCount, withHeaderRow)
           const tr = state.tr.replaceSelectionWith(nodes).scrollIntoView()
+          const resolvedPos = tr.doc.resolve(offset)
+          
+          tr.setSelection(TextSelection.near(resolvedPos))
+
           dispatch(tr)
         }
       ),
@@ -54,12 +61,12 @@ export default class Table extends Node {
       deleteRow: () => deleteRow,
       deleteTable: () => deleteTable,
       toggleCellMerge: () => (
-          (state, dispatch) => {
-            if (mergeCells(state, dispatch)) {
-              return
-            }
-            splitCell(state, dispatch)
+        (state, dispatch) => {
+          if (mergeCells(state, dispatch)) {
+            return
           }
+          splitCell(state, dispatch)
+        }
       ),
       mergeCells: () => mergeCells,
       splitCell: () => splitCell,
