@@ -91,7 +91,7 @@
     background-color: rgba($color-black, 0.1);
     padding: 0.5rem;
     border-radius: 5px;
-    margin-top: 1rem;
+    margin: 1rem 0;
 
     input {
       padding: 0.25rem;
