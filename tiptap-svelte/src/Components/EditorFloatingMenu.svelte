@@ -1,5 +1,5 @@
 <script>
-  import { onMount, onDestroy, tick } from "svelte";
+  import { onMount, onDestroy, createEventDispatcher, tick } from "svelte";
   import FloatingMenu from "../Plugins/FloatingMenu";
 
   export let editor;
@@ -11,6 +11,8 @@
     bottom: 0
   };
 
+  const dispatch = createEventDispatcher();
+
   onMount(async () => {
     if (editor) {
       await tick();
@@ -19,6 +21,12 @@
           editor,
           element: el,
           onUpdate: newMenu => {
+            // the second check ensures event is fired only once
+            if (newMenu.isActive && menu.isActive === false) {
+              dispatch("show", newMenu);
+            } else if (!newMenu.isActive && menu.isActive === true) {
+              dispatch("hide", newMenu);
+            }
             menu = newMenu;
           }
         })
