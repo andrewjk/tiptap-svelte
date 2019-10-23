@@ -203,7 +203,7 @@
 <style lang="scss">
   @import "../../assets/sass/variables";
 
-  .mention {
+  :global(.mention) {
     background: rgba($color-black, 0.1);
     color: rgba($color-black, 0.6);
     font-size: 0.8rem;
@@ -213,7 +213,7 @@
     white-space: nowrap;
   }
 
-  .mention-suggestion {
+  :global(.mention-suggestion) {
     color: rgba($color-black, 0.6);
   }
 
@@ -228,7 +228,7 @@
       display: block;
     }
 
-    &__no-results {
+    :global(&__no-results) {
       padding: 0.2rem 0.5rem;
     }
 
@@ -253,37 +253,37 @@
     }
   }
 
-  .tippy-tooltip.dark-theme {
+  :global(.tippy-tooltip.dark-theme) {
     background-color: $color-black;
     padding: 0;
     font-size: 1rem;
     text-align: inherit;
     color: $color-white;
     border-radius: 5px;
+  }
 
-    .tippy-backdrop {
-      display: none;
-    }
+  :global(.tippy-backdrop) {
+    display: none;
+  }
 
-    .tippy-roundarrow {
-      fill: $color-black;
-    }
+  :global(.tippy-roundarrow) {
+    fill: $color-black;
+  }
 
-    .tippy-popper[x-placement^="top"] & .tippy-arrow {
-      border-top-color: $color-black;
-    }
+  :global(.tippy-popper[x-placement^="top"] & .tippy-arrow) {
+    border-top-color: $color-black;
+  }
 
-    .tippy-popper[x-placement^="bottom"] & .tippy-arrow {
-      border-bottom-color: $color-black;
-    }
+  :global(.tippy-popper[x-placement^="bottom"] & .tippy-arrow) {
+    border-bottom-color: $color-black;
+  }
 
-    .tippy-popper[x-placement^="left"] & .tippy-arrow {
-      border-left-color: $color-black;
-    }
+  :global(.tippy-popper[x-placement^="left"] & .tippy-arrow) {
+    border-left-color: $color-black;
+  }
 
-    .tippy-popper[x-placement^="right"] & .tippy-arrow {
-      border-right-color: $color-black;
-    }
+  :global(.tippy-popper[x-placement^="right"] & .tippy-arrow) {
+    border-right-color: $color-black;
   }
 </style>
 

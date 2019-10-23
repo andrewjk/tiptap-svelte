@@ -31,8 +31,8 @@
 </script>
 
 <style lang="scss">
-  .editor *.is-empty:nth-child(1)::before,
-  .editor *.is-empty:nth-child(2)::before {
+  :global(.editor *.is-empty:nth-child(1)::before),
+  :global(.editor *.is-empty:nth-child(2)::before) {
     content: attr(data-empty-text);
     float: left;
     color: #aaa;

@@ -108,7 +108,7 @@
     }
   }
 
-  .find {
+  :global(.find) {
     background: rgba(255, 213, 0, 0.5);
   }
 </style>

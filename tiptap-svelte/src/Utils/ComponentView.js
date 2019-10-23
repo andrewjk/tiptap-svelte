@@ -1,3 +1,5 @@
+import { compile } from 'svelte/compiler'
+
 import { getMarkRange } from 'tiptap-utils'
 
 export default class ComponentView {
@@ -23,11 +25,13 @@ export default class ComponentView {
     this.getPos = this.isMark ? this.getMarkPos : getPos
     this.captureEvents = true
     this.dom = this.createDOM()
-    // TODO: How do we get bound elements out of a component?
-    //this.contentDOM = this.vm.$refs.content
+    // HACK: We're requiring extension nodes to have an element of class `content-xx` but there should be a better way
+    // TODO: Is there a way to get the bound content element out of a component?
+    this.contentDOM = this.dom.getElementsByClassName('content-xx')[0]
   }
 
   createDOM() {
+    //const Component = compile(this.component.template);
     const Component = this.component;
     const props = {
       editor: this.editor,
@@ -44,21 +48,18 @@ export default class ComponentView {
       this.setSelection = this.extension.setSelection
     }
 
+    // HACK: We're creating this component in a temporary container so that we can get its element
+    // TODO: Is there a way to get the element out of the component directly?
+    var container = document.createElement('div');
+    container.id = Math.floor((Math.random() * 100000) + 1);
+
     // TODO: Fix the parent, which gets set initially in EditorContent.onMount
     this.vm = new Component({
-      target: this.parent,
+      target: container, // this.parent
       props
     })
 
-    // TODO: Need to return some sort of an element
-    return this.vm;
-
-    ////this.vm = new Component({
-    ////  parent: this.parent,
-    ////  propsData: props,
-    ////}).$mount()
-
-    ////return this.vm.$el
+    return container; // this.vm;
   }
 
   update(node, decorations) {
@@ -82,22 +83,15 @@ export default class ComponentView {
   }
 
   updateComponentProps(props) {
-    if (!this.vm.props) {
+    if (!this.vm.$set) {
       return
     }
 
-    ////// Update props in component
-    ////// TODO: Avoid mutating a prop directly.
-    ////// Maybe there is a better way to do this?
-    ////const originalSilent = Vue.config.silent
-    ////Vue.config.silent = true
-
     Object.entries(props).forEach(([key, value]) => {
-      this.vm.props[key] = value
+      var opts = {}
+      opts[key] = value
+      this.vm.$set(opts)
     })
-    ////// this.vm.props.node = node
-    ////// this.vm.props.decorations = decorations
-    ////Vue.config.silent = originalSilent
   }
 
   updateAttrs(attrs) {

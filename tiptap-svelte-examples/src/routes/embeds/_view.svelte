@@ -23,7 +23,7 @@
 </script>
 
 <div class="iframe">
-  <iframe class="iframe__embed" {src} />
+  <iframe class="iframe__embed" {src} title="Embedded iframe demo" />
   {#if view.editable}
     <input
       class="iframe__input"

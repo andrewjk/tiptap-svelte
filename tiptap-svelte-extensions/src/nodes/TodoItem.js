@@ -1,5 +1,6 @@
 import { Node } from '../../../tiptap-svelte/src/index.js'
 import { sinkListItem, splitToDefaultListItem, liftListItem } from 'tiptap-commands'
+import View from './TodoItem.svelte'
 
 export default class TodoItem extends Node {
 
@@ -14,22 +15,7 @@ export default class TodoItem extends Node {
   }
 
   get view() {
-    return {
-      props: ['node', 'updateAttrs', 'view'],
-      methods: {
-        onChange() {
-          this.updateAttrs({
-            done: !this.node.attrs.done,
-          })
-        },
-      },
-      template: `
-        <li :data-type="node.type.name" :data-done="node.attrs.done.toString()" data-drag-handle>
-          <span class="todo-checkbox" contenteditable="false" @click="onChange"></span>
-          <div class="todo-content" ref="content" :contenteditable="view.editable.toString()"></div>
-        </li>
-      `,
-    }
+    return View;
   }
 
   get schema() {
@@ -43,7 +29,6 @@ export default class TodoItem extends Node {
       content: this.options.nested ? '(paragraph|todo_list)+' : 'paragraph+',
       toDOM: node => {
         const { done } = node.attrs
-
         return [
           'li',
           {
