@@ -119,7 +119,7 @@
           class="menububble__button"
           on:click={e => showLinkMenu(getMarkAttrs('link'))}
           class:active={isActive && isActive.link()}>
-          <span>{isActive.link() ? 'Update Link' : 'Add Link'}</span>
+          <span>{isActive && isActive.link() ? 'Update Link' : 'Add Link'}</span>
           <Icon name="link" />
         </button>
       {/if}
