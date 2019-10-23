@@ -10,26 +10,21 @@
   export let selected;
   export let options;
 
-  let blah;
-
-  $: src = node.attrs.src;
-
-  // TODO: Watch?
-  //set(src) {
-  //    this.updateAttrs({
-  //        src,
-  //    })
-  //}
+  function onChange(e) {
+    updateAttrs({
+      src: e.target.value
+    });
+  }
 </script>
 
 <div class="iframe">
-  <iframe class="iframe__embed" {src} title="Embedded iframe demo" />
+  <iframe class="iframe__embed" src={node.attrs.src} title="Embedded iframe demo" />
   {#if view.editable}
     <input
       class="iframe__input"
       on:paste|stopPropagation
       type="text"
-      bind:this={blah}
-      bind:value={src} />
+      value={node.attrs.src}
+      on:change={onChange} />
   {/if}
 </div>

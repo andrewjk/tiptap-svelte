@@ -1,12 +1,14 @@
 <script>
   export let node;
-  export let editor;
-  export let decorations;
   export let updateAttrs;
   export let view;
-  export let options;
+
+  // HACK: These are here to stop warnings clogging up the debug console
+  export let editor;
   export let getPos;
+  export let decorations;
   export let selected;
+  export let options;
 
   // TODO: Figure out a way to get this out of the component
   // For now, we require an element with the class `content-xx`

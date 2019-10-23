@@ -1,5 +1,5 @@
 import { Node } from "../../../../tiptap-svelte/src";
-import _view from './_view.svelte'
+import View from './Iframe.svelte'
 
 export default class Iframe extends Node {
 
@@ -31,7 +31,7 @@ export default class Iframe extends Node {
   }
 
   get view() {
-    return _view;
+    return View;
   }
 
 }
