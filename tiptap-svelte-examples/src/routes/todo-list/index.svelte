@@ -52,6 +52,12 @@
         `
   });
 
+  let isActive;
+
+  editor.on('transaction', () => {
+    isActive = editor.isActive;
+  });
+
   onDestroy(() => {
     editor.destroy();
   });
@@ -111,32 +117,32 @@
 </style>
 
 <div class="editor">
-  <EditorMenuBar class="menubar" {editor} let:commands let:isActive>
+  <EditorMenuBar class="menubar" {editor} let:commands>
 
     <button
       class="menubar__button"
-      class:active={isActive.bold()}
+      class:active={isActive && isActive.bold()}
       on:click={commands.bold}>
       <Icon name="bold" />
     </button>
 
     <button
       class="menubar__button"
-      class:active={isActive.italic()}
+      class:active={isActive && isActive.italic()}
       on:click={commands.italic}>
       <Icon name="italic" />
     </button>
 
     <button
       class="menubar__button"
-      class:active={isActive.code()}
+      class:active={isActive && isActive.code()}
       on:click={commands.code}>
       <Icon name="code" />
     </button>
 
     <button
       class="menubar__button"
-      class:active={isActive.todo_list()}
+      class:active={isActive && isActive.todo_list()}
       on:click={commands.todo_list}>
       <Icon name="checklist" />
     </button>

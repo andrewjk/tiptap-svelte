@@ -32,13 +32,19 @@
         `
   });
 
+  let isActive;
+
+  editor.on('transaction', () => {
+    isActive = editor.isActive;
+  });
+
   onDestroy(() => {
     editor.destroy();
   });
 </script>
 
 <div class="editor">
-  <EditorMenuBar class="menubar" {editor} let:commands let:isActive>
+  <EditorMenuBar class="menubar" {editor} let:commands>
 
     <button class="menubar__button" on:click={commands.undo}>
       <Icon name="undo" />

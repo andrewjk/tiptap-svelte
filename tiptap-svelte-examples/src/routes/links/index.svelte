@@ -53,6 +53,12 @@
 
   let linkInput;
 
+  let isActive;
+
+  editor.on('transaction', () => {
+    isActive = editor.isActive;
+  });
+
   async function showLinkMenu(attrs) {
     linkUrl = attrs.href;
     linkMenuIsActive = true;
@@ -83,7 +89,6 @@
     {editor}
     on:hide={hideLinkMenu}
     let:commands
-    let:isActive
     let:getMarkAttrs
     let:menu>
     <div
@@ -113,7 +118,7 @@
         <button
           class="menububble__button"
           on:click={e => showLinkMenu(getMarkAttrs('link'))}
-          class:active={isActive.link()}>
+          class:active={isActive && isActive.link()}>
           <span>{isActive.link() ? 'Update Link' : 'Add Link'}</span>
           <Icon name="link" />
         </button>

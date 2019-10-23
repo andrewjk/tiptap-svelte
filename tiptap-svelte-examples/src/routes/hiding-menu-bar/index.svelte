@@ -52,102 +52,108 @@
         `
   });
 
+  let isActive;
+
+  editor.on('transaction', () => {
+    isActive = editor.isActive;
+  });
+
   onDestroy(() => {
     editor.destroy();
   });
 </script>
 
 <div class="editor">
-  <EditorMenuBar {editor} let:commands let:isActive let:focused>
+  <EditorMenuBar {editor} let:commands let:focused>
     <div class="menubar is-hidden" class:focused>
 
       <button
         class="menubar__button"
-        class:active={isActive.bold()}
+        class:active={isActive && isActive.bold()}
         on:click={commands.bold}>
         <Icon name="bold" />
       </button>
 
       <button
         class="menubar__button"
-        class:active={isActive.italic()}
+        class:active={isActive && isActive.italic()}
         on:click={commands.italic}>
         <Icon name="italic" />
       </button>
 
       <button
         class="menubar__button"
-        class:active={isActive.strike()}
+        class:active={isActive && isActive.strike()}
         on:click={commands.strike}>
         <Icon name="strike" />
       </button>
 
       <button
         class="menubar__button"
-        class:active={isActive.underline()}
+        class:active={isActive && isActive.underline()}
         on:click={commands.underline}>
         <Icon name="underline" />
       </button>
 
       <button
         class="menubar__button"
-        class:active={isActive.code()}
+        class:active={isActive && isActive.code()}
         on:click={commands.code}>
         <Icon name="code" />
       </button>
 
       <button
         class="menubar__button"
-        class:active={isActive.paragraph()}
+        class:active={isActive && isActive.paragraph()}
         on:click={commands.paragraph}>
         <Icon name="paragraph" />
       </button>
 
       <button
         class="menubar__button"
-        class:active={isActive.heading({ level: 1 })}
+        class:active={isActive && isActive.heading({ level: 1 })}
         on:click={e => commands.heading({ level: 1 })}>
         H1
       </button>
 
       <button
         class="menubar__button"
-        class:active={isActive.heading({ level: 2 })}
+        class:active={isActive && isActive.heading({ level: 2 })}
         on:click={e => commands.heading({ level: 2 })}>
         H2
       </button>
 
       <button
         class="menubar__button"
-        class:active={isActive.heading({ level: 3 })}
+        class:active={isActive && isActive.heading({ level: 3 })}
         on:click={e => commands.heading({ level: 3 })}>
         H3
       </button>
 
       <button
         class="menubar__button"
-        class:active={isActive.bullet_list()}
+        class:active={isActive && isActive.bullet_list()}
         on:click={commands.bullet_list}>
         <Icon name="ul" />
       </button>
 
       <button
         class="menubar__button"
-        class:active={isActive.ordered_list()}
+        class:active={isActive && isActive.ordered_list()}
         on:click={commands.ordered_list}>
         <Icon name="ol" />
       </button>
 
       <button
         class="menubar__button"
-        class:active={isActive.blockquote()}
+        class:active={isActive && isActive.blockquote()}
         on:click={commands.blockquote}>
         <Icon name="quote" />
       </button>
 
       <button
         class="menubar__button"
-        class:active={isActive.code_block()}
+        class:active={isActive && isActive.code_block()}
         on:click={commands.code_block}>
         <Icon name="code" />
       </button>

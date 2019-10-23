@@ -46,6 +46,12 @@
           </p>
         `
   });
+
+  let isActive;
+
+  editor.on("transaction", () => {
+    isActive = editor.isActive;;
+  });
 </script>
 
 <style lang="scss">
@@ -71,7 +77,7 @@
 </style>
 
 <div class="editor">
-  <EditorFloatingMenu {editor} let:commands let:isActive let:menu>
+  <EditorFloatingMenu {editor} let:commands let:menu>
     <div
       class="editor__floating-menu"
       class:active={menu.isActive}
@@ -79,49 +85,49 @@
 
       <button
         class="menubar__button"
-        class:active={isActive.heading({ level: 1 })}
+        class:active={isActive && isActive.heading({ level: 1 })}
         on:click={e => commands.heading({ level: 1 })}>
         H1
       </button>
 
       <button
         class="menubar__button"
-        class:active={isActive.heading({ level: 2 })}
+        class:active={isActive && isActive.heading({ level: 2 })}
         on:click={e => commands.heading({ level: 2 })}>
         H2
       </button>
 
       <button
         class="menubar__button"
-        class:active={isActive.heading({ level: 3 })}
+        class:active={isActive && isActive.heading({ level: 3 })}
         on:click={e => commands.heading({ level: 3 })}>
         H3
       </button>
 
       <button
         class="menubar__button"
-        class:active={isActive.bullet_list()}
+        class:active={isActive && isActive.bullet_list()}
         on:click={commands.bullet_list}>
         <Icon name="ul" />
       </button>
 
       <button
         class="menubar__button"
-        class:active={isActive.ordered_list()}
+        class:active={isActive && isActive.ordered_list()}
         on:click={commands.ordered_list}>
         <Icon name="ol" />
       </button>
 
       <button
         class="menubar__button"
-        class:active={isActive.blockquote()}
+        class:active={isActive && isActive.blockquote()}
         on:click={commands.blockquote}>
         <Icon name="quote" />
       </button>
 
       <button
         class="menubar__button"
-        class:active={isActive.code_block()}
+        class:active={isActive && isActive.code_block()}
         on:click={commands.code_block}>
         <Icon name="code" />
       </button>
