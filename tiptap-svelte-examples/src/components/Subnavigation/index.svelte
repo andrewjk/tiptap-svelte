@@ -30,5 +30,6 @@
   <a class="subnavigation__link" href="/trailing-paragraph">
     Trailing Paragraph
   </a>
+  <a class="subnavigation__link" href="/drag-handle">Drag Handle</a>
   <a class="subnavigation__link" href="/export">Export HTML or JSON</a>
 </div>
