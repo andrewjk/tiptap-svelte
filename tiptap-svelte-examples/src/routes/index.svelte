@@ -22,6 +22,4 @@
     <strong>Svelte components</strong>.
   </p>
 
-  <p>(TODO: Allow users to easily add custom nodes as Svelte components...)</p>
-
 </div>

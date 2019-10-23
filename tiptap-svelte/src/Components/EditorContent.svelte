@@ -9,8 +9,6 @@
     if (editor && editor.element) {
       await tick();
       el.appendChild(editor.element.firstChild);
-      // TODO: This isn't quite right, it's adding custom views to the top-level editor div, rather than the editable div
-      // However, if we set it to a child of el or editor.element, nothing gets rendered...
       editor.setParentComponent(el);
     }
   });
