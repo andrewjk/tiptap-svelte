@@ -9,7 +9,12 @@ const pkg = require('./package.json')
 const mode = process.env.NODE_ENV
 const dev = mode === 'development'
 
-const alias = { svelte: path.resolve('node_modules', 'svelte') }
+const alias = {
+	svelte: path.resolve('node_modules', 'svelte'),
+	'prosemirror-model': path.resolve('node_modules', 'prosemirror-model'),
+	'prosemirror-state': path.resolve('node_modules', 'prosemirror-state'),
+	'prosemirror-tables': path.resolve('node_modules', 'prosemirror-tables')
+}
 const extensions = ['.mjs', '.js', '.json', '.svelte', '.html']
 const mainFields = ['svelte', 'module', 'browser', 'main']
 
