@@ -13,8 +13,15 @@ yarn add -D tiptap-svelte etc
 ## Running the examples
 
 ```bash
+# clone tiptap-svelte
 git clone https://github.com/andrewjk/tiptap-svelte.git
-cd tiptap-svelte/tiptap-svelte-examples
+cd tiptap-svelte
+# install the dependencies for each project
+cd tiptap-svelte && yarn install && cd ..
+cd tiptap-svelte-extensions && yarn install && cd ..
+cd tiptap-svelte-examples && yarn install && cd ..
+# run the examples project
+cd tiptap-svelte-examples
 yarn run dev
 ```
 

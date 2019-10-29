@@ -1,7 +1,7 @@
 {
   "name": "tiptap-svelte",
   "version": "0.0.0",
-  "description": "A rich-text editor for Vue.js",
+  "description": "A rich-text editor for Svelte",
   "homepage": "https://tiptap.scrumpy.io",
   "license": "MIT",
   "main": "dist/tiptap.common.js",
@@ -14,10 +14,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/scrumpy/tiptap.git"
+    "url": "git+https://github.com/andrewjk/tiptap-svelte.git"
   },
   "bugs": {
-    "url": "https://github.com/scrumpy/tiptap/issues"
+    "url": "https://github.com/andrewjk/tiptap-svelte/issues"
   },
   "dependencies": {
     "prosemirror-commands": "^1.0.8",
@@ -27,7 +27,7 @@
     "prosemirror-keymap": "^1.0.2",
     "prosemirror-model": "^1.7.4",
     "prosemirror-state": "^1.2.4",
-    "prosemirror-view": "^1.12.0",
+    "prosemirror-view": "^1.12.1",
     "tiptap-commands": "^1.12.3",
     "tiptap-utils": "^1.8.2"
   },
