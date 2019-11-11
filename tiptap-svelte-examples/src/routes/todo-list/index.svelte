@@ -1,5 +1,5 @@
 <script>
-  import { onDestroy } from "svelte";
+  import { onMount, onDestroy } from "svelte";
   import Icon from "../../components/Icon";
   import Editor from "../../../../tiptap-svelte/src/Editor.js";
   import EditorContent from "../../../../tiptap-svelte/src/Components/EditorContent";
@@ -15,20 +15,24 @@
     Italic
   } from "../../../../tiptap-svelte-extensions/src/index.js";
 
-  let editor = new Editor({
-    extensions: [
-      new CodeBlock(),
-      new HardBreak(),
-      new Heading({ levels: [1, 2, 3] }),
-      new TodoItem({
-        nested: true
-      }),
-      new TodoList(),
-      new Bold(),
-      new Code(),
-      new Italic()
-    ],
-    content: `
+  let editor;
+  let isActive;
+
+  onMount(() => {
+    editor = new Editor({
+      extensions: [
+        new CodeBlock(),
+        new HardBreak(),
+        new Heading({ levels: [1, 2, 3] }),
+        new TodoItem({
+          nested: true
+        }),
+        new TodoList(),
+        new Bold(),
+        new Code(),
+        new Italic()
+      ],
+      content: `
           <h2>
             Todo List
           </h2>
@@ -50,16 +54,17 @@
             </li>
           </ul>
         `
-  });
+    });
 
-  let isActive;
-
-  editor.on('transaction', () => {
-    isActive = editor.isActive;
+    editor.on("transaction", () => {
+      isActive = editor.isActive;
+    });
   });
 
   onDestroy(() => {
-    editor.destroy();
+    if (editor) {
+      editor.destroy();
+    }
   });
 </script>
 
@@ -116,38 +121,40 @@
   }
 </style>
 
-<div class="editor">
-  <EditorMenuBar class="menubar" {editor} let:commands>
+{#if editor}
+  <div class="editor">
+    <EditorMenuBar class="menubar" {editor} let:commands>
 
-    <button
-      class="menubar__button"
-      class:active={isActive && isActive.bold()}
-      on:click={commands.bold}>
-      <Icon name="bold" />
-    </button>
+      <button
+        class="menubar__button"
+        class:active={isActive && isActive.bold()}
+        on:click={commands.bold}>
+        <Icon name="bold" />
+      </button>
 
-    <button
-      class="menubar__button"
-      class:active={isActive && isActive.italic()}
-      on:click={commands.italic}>
-      <Icon name="italic" />
-    </button>
+      <button
+        class="menubar__button"
+        class:active={isActive && isActive.italic()}
+        on:click={commands.italic}>
+        <Icon name="italic" />
+      </button>
 
-    <button
-      class="menubar__button"
-      class:active={isActive && isActive.code()}
-      on:click={commands.code}>
-      <Icon name="code" />
-    </button>
+      <button
+        class="menubar__button"
+        class:active={isActive && isActive.code()}
+        on:click={commands.code}>
+        <Icon name="code" />
+      </button>
 
-    <button
-      class="menubar__button"
-      class:active={isActive && isActive.todo_list()}
-      on:click={commands.todo_list}>
-      <Icon name="checklist" />
-    </button>
+      <button
+        class="menubar__button"
+        class:active={isActive && isActive.todo_list()}
+        on:click={commands.todo_list}>
+        <Icon name="checklist" />
+      </button>
 
-  </EditorMenuBar>
+    </EditorMenuBar>
 
-  <EditorContent class="editor__content" {editor} />
-</div>
+    <EditorContent class="editor__content" {editor} />
+  </div>
+{/if}

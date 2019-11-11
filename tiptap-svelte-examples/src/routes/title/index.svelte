@@ -1,5 +1,5 @@
 <script>
-  import { onDestroy } from "svelte";
+  import { onMount, onDestroy } from "svelte";
   import Icon from "../../components/Icon";
   import Editor from "../../../../tiptap-svelte/src/Editor.js";
   import EditorContent from "../../../../tiptap-svelte/src/Components/EditorContent";
@@ -7,26 +7,32 @@
   import Doc from "./Doc";
   import Title from "./Title";
 
-  let editor = new Editor({
-    autoFocus: true,
-    extensions: [
-      new Doc(),
-      new Title(),
-      new Placeholder({
-        showOnlyCurrent: false,
-        emptyNodeText: node => {
-          if (node.type.name === "title") {
-            return "Give me a name";
-          }
+  let editor;
 
-          return "Write something";
-        }
-      })
-    ]
+  onMount(() => {
+    editor = new Editor({
+      autoFocus: true,
+      extensions: [
+        new Doc(),
+        new Title(),
+        new Placeholder({
+          showOnlyCurrent: false,
+          emptyNodeText: node => {
+            if (node.type.name === "title") {
+              return "Give me a name";
+            }
+
+            return "Write something";
+          }
+        })
+      ]
+    });
   });
 
   onDestroy(() => {
-    editor.destroy();
+    if (editor) {
+      editor.destroy();
+    }
   });
 </script>
 
@@ -42,6 +48,8 @@
   }
 </style>
 
-<div class="editor">
-  <EditorContent class="editor__content" {editor} />
-</div>
+{#if editor}
+  <div class="editor">
+    <EditorContent class="editor__content" {editor} />
+  </div>
+{/if}

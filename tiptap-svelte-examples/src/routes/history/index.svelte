@@ -1,5 +1,5 @@
 <script>
-  import { onDestroy } from "svelte";
+  import { onMount, onDestroy } from "svelte";
   import Icon from "../../components/Icon";
   import Editor from "../../../../tiptap-svelte/src/Editor.js";
   import EditorContent from "../../../../tiptap-svelte/src/Components/EditorContent";
@@ -13,16 +13,20 @@
     History
   } from "../../../../tiptap-svelte-extensions/src/index.js";
 
-  let editor = new Editor({
-    extensions: [
-      new HardBreak(),
-      new Heading({ levels: [1, 2, 3] }),
-      new Bold(),
-      new Code(),
-      new Italic(),
-      new History()
-    ],
-    content: `
+  let editor;
+  let isActive;
+
+  onMount(() => {
+    editor = new Editor({
+      extensions: [
+        new HardBreak(),
+        new Heading({ levels: [1, 2, 3] }),
+        new Bold(),
+        new Code(),
+        new Italic(),
+        new History()
+      ],
+      content: `
           <h2>
             History
           </h2>
@@ -30,31 +34,34 @@
             Try to change some content here. With the <code>History</code> extension you are able to undo and redo your changes. You can also use keyboard shortcuts for this (<code>cmd+z</code> and <code>cmd+shift+z</code>).
           </p>
         `
-  });
+    });
 
-  let isActive;
-
-  editor.on('transaction', () => {
-    isActive = editor.isActive;
+    editor.on("transaction", () => {
+      isActive = editor.isActive;
+    });
   });
 
   onDestroy(() => {
-    editor.destroy();
+    if (editor) {
+      editor.destroy();
+    }
   });
 </script>
 
-<div class="editor">
-  <EditorMenuBar class="menubar" {editor} let:commands>
+{#if editor}
+  <div class="editor">
+    <EditorMenuBar class="menubar" {editor} let:commands>
 
-    <button class="menubar__button" on:click={commands.undo}>
-      <Icon name="undo" />
-    </button>
+      <button class="menubar__button" on:click={commands.undo}>
+        <Icon name="undo" />
+      </button>
 
-    <button class="menubar__button" on:click={commands.redo}>
-      <Icon name="redo" />
-    </button>
+      <button class="menubar__button" on:click={commands.redo}>
+        <Icon name="redo" />
+      </button>
 
-  </EditorMenuBar>
+    </EditorMenuBar>
 
-  <EditorContent class="editor__content" {editor} />
-</div>
+    <EditorContent class="editor__content" {editor} />
+  </div>
+{/if}

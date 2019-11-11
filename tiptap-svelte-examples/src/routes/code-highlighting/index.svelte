@@ -1,4 +1,5 @@
 <script>
+  import { onMount, onDestroy } from "svelte";
   import Icon from "../../components/Icon";
   import Editor from "../../../../tiptap-svelte/src/Editor.js";
   import EditorContent from "../../../../tiptap-svelte/src/Components/EditorContent";
@@ -20,21 +21,24 @@
     ExplicitImportExample
   } from "./examples";
 
-  let editor = new Editor({
-    extensions: [
-      new CodeBlockHighlight({
-        languages: {
-          javascript,
-          css: cssx
-        }
-      }),
-      new HardBreak(),
-      new Heading({ levels: [1, 2, 3] }),
-      new Bold(),
-      new Code(),
-      new Italic()
-    ],
-    content: `
+  let editor;
+
+  onMount(() => {
+    editor = new Editor({
+      extensions: [
+        new CodeBlockHighlight({
+          languages: {
+            javascript,
+            css: cssx
+          }
+        }),
+        new HardBreak(),
+        new Heading({ levels: [1, 2, 3] }),
+        new Bold(),
+        new Code(),
+        new Italic()
+      ],
+      content: `
           <h2>
             Code Highlighting
           </h2>
@@ -50,6 +54,13 @@
           </p>
           <pre><code>${ExplicitImportExample}</code></pre>
         `
+    });
+  });
+
+  onDestroy(() => {
+    if (editor) {
+      editor.destroy();
+    }
   });
 </script>
 
@@ -120,6 +131,8 @@
   }
 </style>
 
-<div class="editor">
-  <EditorContent class="editor__content" {editor} />
-</div>
+{#if editor}
+  <div class="editor">
+    <EditorContent class="editor__content" {editor} />
+  </div>
+{/if}

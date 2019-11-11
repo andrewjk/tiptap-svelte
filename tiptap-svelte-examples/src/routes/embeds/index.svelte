@@ -1,5 +1,5 @@
 <script>
-  import { onDestroy } from "svelte";
+  import { onMount, onDestroy } from "svelte";
   import Editor from "../../../../tiptap-svelte/src/Editor.js";
   import EditorContent from "../../../../tiptap-svelte/src/Components/EditorContent";
   import {
@@ -12,19 +12,22 @@
   } from "../../../../tiptap-svelte-extensions/src/index.js";
   import Iframe from "./Iframe.js";
 
-  let editor = new Editor({
-    element: document.createElement("div"),
-    extensions: [
-      new HardBreak(),
-      new Heading({ levels: [1, 2, 3] }),
-      new Bold(),
-      new Italic(),
-      new History(),
-      new TrailingNode(),
-      // custom extension
-      new Iframe()
-    ],
-    content: `
+  let editor;
+
+  onMount(() => {
+    editor = new Editor({
+      element: document.createElement("div"),
+      extensions: [
+        new HardBreak(),
+        new Heading({ levels: [1, 2, 3] }),
+        new Bold(),
+        new Italic(),
+        new History(),
+        new TrailingNode(),
+        // custom extension
+        new Iframe()
+      ],
+      content: `
           <h2>
             Embeds
           </h2>
@@ -33,10 +36,13 @@
           </p>
           <iframe src="https://www.youtube.com/embed/XIMLoLxmTDw" frameborder="0" allowfullscreen></iframe>
         `
+    });
   });
 
   onDestroy(() => {
-    editor.destroy();
+    if (editor) {
+      editor.destroy();
+    }
   });
 </script>
 
@@ -62,6 +68,8 @@
   }
 </style>
 
-<div class="editor">
-  <EditorContent class="editor__content" {editor} />
-</div>
+{#if editor}
+  <div class="editor">
+    <EditorContent class="editor__content" {editor} />
+  </div>
+{/if}

@@ -1,5 +1,5 @@
 <script>
-  import { onDestroy } from "svelte";
+  import { onMount, onDestroy } from "svelte";
   import Icon from "../../components/Icon";
   import Editor from "../../../../tiptap-svelte/src/Editor.js";
   import EditorContent from "../../../../tiptap-svelte/src/Components/EditorContent";
@@ -25,32 +25,35 @@
     Focus
   } from "../../../../tiptap-svelte-extensions/src/index.js";
 
-  let editor = new Editor({
-    extensions: [
-      new Blockquote(),
-      new BulletList(),
-      new CodeBlock(),
-      new HardBreak(),
-      new Heading({ levels: [1, 2, 3] }),
-      new HorizontalRule(),
-      new ListItem(),
-      new OrderedList(),
-      new TodoItem(),
-      new TodoList(),
-      new Link(),
-      new Bold(),
-      new Code(),
-      new Italic(),
-      new Strike(),
-      new Underline(),
-      new History(),
-      new Focus({
-        className: "has-focus",
-        nested: true
-      })
-    ],
-    autoFocus: true,
-    content: `
+  let editor;
+
+  onMount(() => {
+    editor = new Editor({
+      extensions: [
+        new Blockquote(),
+        new BulletList(),
+        new CodeBlock(),
+        new HardBreak(),
+        new Heading({ levels: [1, 2, 3] }),
+        new HorizontalRule(),
+        new ListItem(),
+        new OrderedList(),
+        new TodoItem(),
+        new TodoList(),
+        new Link(),
+        new Bold(),
+        new Code(),
+        new Italic(),
+        new Strike(),
+        new Underline(),
+        new History(),
+        new Focus({
+          className: "has-focus",
+          nested: true
+        })
+      ],
+      autoFocus: true,
+      content: `
           <h2>
             Focus classes
           </h2>
@@ -67,10 +70,13 @@
             </li>
           </ul>
         `
+    });
   });
 
   onDestroy(() => {
-    editor.destroy();
+    if (editor) {
+      editor.destroy();
+    }
   });
 </script>
 
@@ -83,6 +89,8 @@
   }
 </style>
 
-<div class="editor">
-  <EditorContent class="editor__content" {editor} />
-</div>
+{#if editor}
+  <div class="editor">
+    <EditorContent class="editor__content" {editor} />
+  </div>
+{/if}

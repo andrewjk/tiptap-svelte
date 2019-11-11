@@ -1,4 +1,5 @@
 <script>
+  import { onMount, onDestroy } from "svelte";
   import Icon from "../../components/Icon";
   import Editor from "../../../../tiptap-svelte/src/Editor.js";
   import EditorContent from "../../../../tiptap-svelte/src/Components/EditorContent";
@@ -20,24 +21,28 @@
     History
   } from "../../../../tiptap-svelte-extensions/src/index.js";
 
-  let editor = new Editor({
-    extensions: [
-      new Blockquote(),
-      new BulletList(),
-      new CodeBlock(),
-      new HardBreak(),
-      new Heading({ levels: [1, 2, 3] }),
-      new ListItem(),
-      new OrderedList(),
-      new TodoItem(),
-      new TodoList(),
-      new Link(),
-      new Bold(),
-      new Code(),
-      new Italic(),
-      new History()
-    ],
-    content: `
+  let editor;
+  let isActive;
+
+  onMount(() => {
+    editor = new Editor({
+      extensions: [
+        new Blockquote(),
+        new BulletList(),
+        new CodeBlock(),
+        new HardBreak(),
+        new Heading({ levels: [1, 2, 3] }),
+        new ListItem(),
+        new OrderedList(),
+        new TodoItem(),
+        new TodoList(),
+        new Link(),
+        new Bold(),
+        new Code(),
+        new Italic(),
+        new History()
+      ],
+      content: `
           <h2>
             Floating Menu
           </h2>
@@ -45,12 +50,17 @@
             This is an example of a medium-like editor. Enter a new line and some buttons will appear.
           </p>
         `
+    });
+
+    editor.on("transaction", () => {
+      isActive = editor.isActive;
+    });
   });
 
-  let isActive;
-
-  editor.on("transaction", () => {
-    isActive = editor.isActive;;
+  onDestroy(() => {
+    if (editor) {
+      editor.destroy();
+    }
   });
 </script>
 
@@ -76,64 +86,66 @@
   }
 </style>
 
-<div class="editor">
-  <EditorFloatingMenu {editor} let:commands let:menu>
-    <div
-      class="editor__floating-menu"
-      class:active={menu.isActive}
-      style={`top: ${menu.top}px`}>
+{#if editor}
+  <div class="editor">
+    <EditorFloatingMenu {editor} let:commands let:menu>
+      <div
+        class="editor__floating-menu"
+        class:active={menu.isActive}
+        style={`top: ${menu.top}px`}>
 
-      <button
-        class="menubar__button"
-        class:active={isActive && isActive.heading({ level: 1 })}
-        on:click={e => commands.heading({ level: 1 })}>
-        H1
-      </button>
+        <button
+          class="menubar__button"
+          class:active={isActive && isActive.heading({ level: 1 })}
+          on:click={e => commands.heading({ level: 1 })}>
+          H1
+        </button>
 
-      <button
-        class="menubar__button"
-        class:active={isActive && isActive.heading({ level: 2 })}
-        on:click={e => commands.heading({ level: 2 })}>
-        H2
-      </button>
+        <button
+          class="menubar__button"
+          class:active={isActive && isActive.heading({ level: 2 })}
+          on:click={e => commands.heading({ level: 2 })}>
+          H2
+        </button>
 
-      <button
-        class="menubar__button"
-        class:active={isActive && isActive.heading({ level: 3 })}
-        on:click={e => commands.heading({ level: 3 })}>
-        H3
-      </button>
+        <button
+          class="menubar__button"
+          class:active={isActive && isActive.heading({ level: 3 })}
+          on:click={e => commands.heading({ level: 3 })}>
+          H3
+        </button>
 
-      <button
-        class="menubar__button"
-        class:active={isActive && isActive.bullet_list()}
-        on:click={commands.bullet_list}>
-        <Icon name="ul" />
-      </button>
+        <button
+          class="menubar__button"
+          class:active={isActive && isActive.bullet_list()}
+          on:click={commands.bullet_list}>
+          <Icon name="ul" />
+        </button>
 
-      <button
-        class="menubar__button"
-        class:active={isActive && isActive.ordered_list()}
-        on:click={commands.ordered_list}>
-        <Icon name="ol" />
-      </button>
+        <button
+          class="menubar__button"
+          class:active={isActive && isActive.ordered_list()}
+          on:click={commands.ordered_list}>
+          <Icon name="ol" />
+        </button>
 
-      <button
-        class="menubar__button"
-        class:active={isActive && isActive.blockquote()}
-        on:click={commands.blockquote}>
-        <Icon name="quote" />
-      </button>
+        <button
+          class="menubar__button"
+          class:active={isActive && isActive.blockquote()}
+          on:click={commands.blockquote}>
+          <Icon name="quote" />
+        </button>
 
-      <button
-        class="menubar__button"
-        class:active={isActive && isActive.code_block()}
-        on:click={commands.code_block}>
-        <Icon name="code" />
-      </button>
+        <button
+          class="menubar__button"
+          class:active={isActive && isActive.code_block()}
+          on:click={commands.code_block}>
+          <Icon name="code" />
+        </button>
 
-    </div>
-  </EditorFloatingMenu>
+      </div>
+    </EditorFloatingMenu>
 
-  <EditorContent class="editor__content" {editor} />
-</div>
+    <EditorContent class="editor__content" {editor} />
+  </div>
+{/if}
