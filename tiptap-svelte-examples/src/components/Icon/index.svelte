@@ -1,7 +1,6 @@
 <script>
   export let name;
   export let size = "normal";
-  export let modifier = null;
   export let fixAlign = true;
 </script>
 
