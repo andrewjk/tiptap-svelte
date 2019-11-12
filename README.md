@@ -39,7 +39,7 @@ Then point your browser to [http://localhost:3000](http://localhost:3000).
     import { Editor, EditorContent } from 'tiptap-svelte';
     import { onMount, onDestroy } from 'svelte';
 
-    let editor = null;
+    let editor;
 
     onMount(() => {
         editor = new Editor({
@@ -48,9 +48,13 @@ Then point your browser to [http://localhost:3000](http://localhost:3000).
     });
 
     onDestroy(() => {
-        editor.destroy()
+        if (editor) {
+            editor.destroy()
+        }
     });
 </script>
 
-<EditorContent {editor} />
+{#if editor}
+    <EditorContent {editor} />
+{/if}
 ```
