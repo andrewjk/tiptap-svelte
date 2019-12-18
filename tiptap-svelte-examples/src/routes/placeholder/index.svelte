@@ -17,9 +17,11 @@
         new BulletList(),
         new ListItem(),
         new Placeholder({
+          emptyEditorClass: 'is-editor-empty',
           emptyNodeClass: "is-empty",
           emptyNodeText: "Write something…",
-          showOnlyWhenEditable: true
+          showOnlyWhenEditable: true,
+          showOnlyCurrent: true, 
         })
       ]
     });
@@ -33,7 +35,7 @@
 </script>
 
 <style lang="scss">
-  :global(.editor p.is-empty:first-child::before) {
+  :global(.editor p.is-editor-empty:first-child::before) {
     content: attr(data-empty-text);
     float: left;
     color: #aaa;
