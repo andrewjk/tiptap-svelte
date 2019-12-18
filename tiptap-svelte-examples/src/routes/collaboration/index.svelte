@@ -68,8 +68,12 @@
   });
 
   onDestroy(() => {
-    editor.destroy();
-    socket.destroy();
+    if (editor) {
+      editor.destroy();
+    }
+    if (socket) {
+      socket.destroy();
+    }
   });
 </script>
 
