@@ -19,7 +19,7 @@
 
   <Hero />
 
-  <Subnavigation />
+  <Subnavigation {segment} />
 
   <div class="page__content">
     <slot />
