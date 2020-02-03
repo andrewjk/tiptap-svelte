@@ -77,7 +77,7 @@
   });
 </script>
 
-<style lang="scss">
+<style lang="scss" global>
   @import "../../assets/sass/variables";
 
   .count {

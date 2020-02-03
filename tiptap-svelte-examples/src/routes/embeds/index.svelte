@@ -46,10 +46,10 @@
   });
 </script>
 
-<style lang="scss">
+<style lang="scss" global>
   @import "../../assets/sass/variables";
 
-  :global(.iframe) {
+  .iframe {
     &__embed {
       width: 100%;
       height: 15rem;

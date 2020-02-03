@@ -34,8 +34,8 @@
   });
 </script>
 
-<style lang="scss">
-  :global(.editor p.is-editor-empty:first-child::before) {
+<style lang="scss" global>
+  .editor p.is-editor-empty:first-child::before {
     content: attr(data-empty-text);
     float: left;
     color: #aaa;

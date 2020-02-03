@@ -93,7 +93,7 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" global>
   @import "../../assets/sass/variables";
 
   .search {
@@ -119,7 +119,7 @@
     }
   }
 
-  :global(.find) {
+  .find {
     background: rgba(255, 213, 0, 0.5);
   }
 </style>

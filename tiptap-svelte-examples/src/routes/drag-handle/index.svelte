@@ -39,8 +39,8 @@
   });
 </script>
 
-<style lang="scss">
-  :global([data-type="drag_item"]) {
+<style lang="scss" global>
+  [data-type="drag_item"] {
     display: flex;
     padding: 0.5rem;
     background-color: rgba(black, 0.05);
@@ -48,11 +48,11 @@
     border-radius: 6px;
   }
 
-  :global([data-type="drag_item"] > :first-child) {
+  [data-type="drag_item"] > :first-child {
     flex: 1 1 auto;
   }
 
-  :global([data-type="drag_item"] > :last-child) {
+  [data-type="drag_item"] > :last-child {
     flex: 0 0 auto;
     margin-left: auto;
     cursor: move;

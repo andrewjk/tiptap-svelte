@@ -64,8 +64,8 @@
   });
 </script>
 
-<style lang="scss">
-  :global(pre) {
+<style lang="scss" global>
+  pre {
     &::before {
       content: attr(data-language);
       text-transform: uppercase;

@@ -29,9 +29,9 @@
   }
 
   // svg sprite
-  :global(body > svg),
-  :global(.icon use > svg),
-  :global(symbol) {
+  body > svg,
+  .icon use > svg,
+  symbol {
     path,
     rect,
     circle,

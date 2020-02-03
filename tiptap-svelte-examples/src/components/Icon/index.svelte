@@ -4,7 +4,7 @@
   export let fixAlign = true;
 </script>
 
-<style lang="scss" src="style.scss">
+<style lang="scss" src="style.scss" global>
 
 </style>
 
