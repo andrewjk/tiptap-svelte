@@ -1,5 +1,9 @@
 # tiptap-svelte
 
+NOTE: This repository is now archived as tiptap 2.0 has [official support for Svelte](https://tiptap.dev/installation/svelte/).
+
+## About
+
 This editor is ported from [tiptap](https://tiptap.scrumpy.io), which is based on [Prosemirror](https://prosemirror.net).
 
 It is *fully extendable* and renderless. You can easily add custom nodes as __Svelte components__.
